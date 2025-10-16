@@ -1,73 +1,40 @@
-<!DOCTYPE html>
-<html lang="es">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <title>Tequila AR</title>
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/1.7.2/aframe/build/aframe-ar.min.js"></script>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-      body {
-        margin: 0;
-        font-family: sans-serif;
-        background-color: #f8f8f8;
-      }
-
-      #container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 20px;
-        text-align: center;
-      }
-
-      #text-box {
-        width: 95%;
-        max-width: 500px;
-        height: 300px;
+      #infoBox {
+        position: absolute;
+        bottom: 10vh;
+        left: 5vw;
+        width: 90vw;
+        max-height: 40vh;
         overflow-y: scroll;
-        background: rgba(255, 255, 255, 0.95);
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.2);
-        margin-bottom: 20px;
-      }
-
-      #text-box p {
-        font-size: 18px;
-        line-height: 1.6;
-        margin-bottom: 12px;
-      }
-
-      #boton {
-        padding: 12px 24px;
-        background: #007bff;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        cursor: pointer;
-      }
-
-      #boton:hover {
-        background: #0056b3;
+        background: rgba(255,255,255,0.9);
+        padding: 1em;
+        font-family: serif;
+        font-size: 1.2em;
+        border-radius: 8px;
       }
     </style>
   </head>
-  <body>
-    <!-- Escena AR con marcador personalizado -->
+  <body style="margin: 0; overflow: hidden;">
+    <div id="infoBox">
+      <strong>Elaborado Con Agave Azul de la Región de Tequila Jalisco</strong><br>
+      Nos Enorgullecemos en Ofrecerte un Tequila Extra Añejo de la más Alta Calidad...
+    </div>
+
     <a-scene embedded arjs>
-      <a-marker type="pattern" url="markercode.patt">
-        <a-image src="botella.png" position="0 0.5 0" width="1.5" height="2"></a-image>
+      <a-assets>
+        <img id="botella" src="botella.png">
+      </a-assets>
+
+      <a-marker type="pattern" url="marker.patt">
+        <a-plane src="#botella" height="1" width="0.5" position="0 0 0"></a-plane>
       </a-marker>
+
       <a-entity camera></a-entity>
     </a-scene>
-
-    <!-- Contenido debajo del AR -->
-    <div id="container">
-      <div id="text-box">
-        <p><strong>100% Agave azul Tequilana Weber</strong></p>
-        <p>Elaborado Con Agave Azul de la Región de Tequila Jalisco</p>
-        <p>Nos Enorgullecemos en Ofrecerte un Tequila Extra Añejo de la más Alta Calidad</p>
-        <p>Destilado con Pasión y Entrega</p>
-        <p>Nuestra Pasión por la Autenticidad y la Excelencia nos ha llevado a Obtener la Certificación NOM-006-SCFI-2012, Que Garantiza que Nuestro tequila es 100% de Agave Azul</p>
-        <p><strong>Cocimiento
+  </body>
+</html>
