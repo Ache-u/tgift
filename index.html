@@ -12,24 +12,31 @@
 
   <style>
     body { margin:0; overflow:hidden; font-family: system-ui, sans-serif; background-color: #000; }
+
     #ui {
       position: fixed;
       bottom: 10px;
       left: 10px;
       right: 10px;
-      background: rgba(0,0,0,0.7);
+      max-height: 50%;
+      overflow-y: auto;
+      background: rgba(0,0,0,0.75);
       color: #fff;
       border-radius: 10px;
       padding: 12px;
       display: none;
       z-index: 9999;
     }
+
     #ui h3 { margin:0 0 6px 0; font-size: 16px; }
-    #ui p { margin:0 0 8px 0; font-size: 14px; }
+    #ui p { margin:0 0 6px 0; font-size: 14px; white-space: pre-line; }
+
     #ui a {
       color: #ffdc6e;
       text-decoration: underline;
+      word-break: break-word;
     }
+
     #hint {
       position: fixed;
       top:10px;
@@ -48,8 +55,31 @@
 <div id="hint">Apunta la cámara al marcador (markercode.png) y permite acceso a la cámara.</div>
 
 <div id="ui">
-  <h3>Botella TequilaGift</h3>
-  <p>Descubre nuestra edición especial artesanal.</p>
+  <h3>100% Agave Azul Tequilana Weber</h3>
+  <p>
+Elaborado Con Agave Azul de la Región de Tequila Jalisco
+Nos Enorgullecemos en Ofrecerte un Tequila Extra Añejo de la más Alta Calidad
+Destilado con Pasión y Entrega
+
+Nuestra Pasión por la Autenticidad y la Excelencia nos ha llevado a Obtener la Certificación
+NOM-006-SCFI-2012, Que Garantiza que Nuestro tequila es 100% de Agave Azul
+
+Cocimiento: Las Piñas de Agave Son Cocidas en Hornos de Mampostería Para Asegurar la Correcta Cocción con un Reposo de 18 a 24 Horas
+
+Molienda: Una Vez Cocido La Piña de Agave, Se Exprime En Un Molino de Pasos, Donde La Calidad del Mosto es Monitoreada.
+
+Fermentación: El Mosto Es Fermentado en tanques de Acero inoxidable, Donde Se Logra La Fermentación, de Forma Natural, Generando Las Notas Aromáticas que nos Caracteriza
+
+Destilación: Realizamos una Triple Destilación, En Alambiques de Cobre Donde entre el corte de Cabezas Y Colas, Extraemos el Corazón que Expresa de Forma Aromática y Gustativa El Cuidado que hemos Puesto en la elaboración de Este Tequila De Máxima Calidad
+
+Reposo: Se Reposa en barricas de Roble Blanco Francés 2 Años y 1 Año en Barrica de Whisky
+
+Nota de Cata:
+Color: Café Dorado Obscuro
+Aroma: Agave en Todas sus Expresiones (Campo y Cocido)
+Tiene Su Balance con Notas Frutales y Dulce y Un Tanto Terrosas.
+Sabor: Predominante Agave Cocido, Con Final Terroso en el Paladar se Comporta de Manera Firme y en Retrogusto, Predominan Las Notas de Agave
+  </p>
   <a href="https://tequilagiftmex.com/" target="_blank" rel="noopener">Visita TequilaGiftMex.com</a>
 </div>
 
@@ -76,16 +106,4 @@
   const ui = document.querySelector('#ui');
   const hint = document.querySelector('#hint');
 
-  marker.addEventListener('markerFound', () => {
-    ui.style.display = 'block';
-    hint.style.display = 'none';
-  });
-
-  marker.addEventListener('markerLost', () => {
-    ui.style.display = 'none';
-    hint.style.display = 'block';
-  });
-</script>
-
-</body>
-</html>
+  marker.addEventLi
