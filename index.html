@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tequila AR</title>
+  <title>Tequila AR Fallback</title>
   <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.min.js"></script>
   <style>
@@ -12,11 +12,12 @@
       position: fixed; bottom: 10px; left: 10px; right: 10px;
       max-height: 50%; overflow-y: auto;
       background: rgba(0,0,0,0.8); color:#fff;
-      border-radius: 10px; padding:12px; display:none; z-index:9999;
+      border-radius: 10px; padding:12px; display:block; /* visible por defecto */
+      z-index:9999;
     }
     #ui h3 { margin:0 0 6px 0; font-size:16px; }
     #ui p { margin:0 0 6px 0; font-size:14px; white-space: pre-line; }
-    #ui a { color:#ffdc6e; text-decoration:underline; }
+    #ui a { color:#ffdc6e; text-decoration:underline; word-break: break-word; }
     #hint {
       position: fixed; top:10px; left:10px;
       background: rgba(255,255,255,0.9); color:#000;
@@ -62,9 +63,13 @@ Sabor: Predominante Agave Cocido, Con Final Terroso en el Paladar se Comporta de
     <img id="botella" src="assets/botella.png" crossorigin="anonymous">
   </a-assets>
 
+  <!-- Marker AR -->
   <a-marker type="pattern" url="assets/marker.patt" id="marker">
-    <a-plane src="#botella" rotation="-90 0 0" width="2" height="1.2" position="0 0.6 0" material="transparent:true"></a-plane>
+    <a-plane id="planeMarker" src="#botella" rotation="-90 0 0" width="2" height="1.2" position="0 0.6 0" material="transparent:true"></a-plane>
   </a-marker>
+
+  <!-- Fallback: siempre visible delante de la cámara -->
+  <a-plane id="planeFallback" src="#botella" rotation="-90 0 0" width="2" height="1.2" position="0 0.6 -1" material="transparent:true" animation="property: position; dir: alternate; dur: 2000; easing: easeInOutSine; loop: true; to: 0 0.8 -1"></a-plane>
 
   <a-entity camera></a-entity>
 </a-scene>
@@ -74,8 +79,13 @@ Sabor: Predominante Agave Cocido, Con Final Terroso en el Paladar se Comporta de
   const ui = document.querySelector('#ui');
   const hint = document.querySelector('#hint');
 
-  marker.addEventListener('markerFound', () => { ui.style.display = 'block'; hint.style.display = 'none'; });
-  marker.addEventListener('markerLost', () => { ui.style.display = 'none'; hint.style.display = 'block'; });
+  marker.addEventListener('markerFound', () => {
+    hint.style.display = 'none';
+  });
+
+  marker.addEventListener('markerLost', () => {
+    hint.style.display = 'block';
+  });
 </script>
 
 </body>
