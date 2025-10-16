@@ -1,52 +1,26 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>TGift AR Demo</title>
-
-  <!-- A-Frame -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tequila AR</title>
   <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-  <!-- AR.js -->
   <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.min.js"></script>
-
   <style>
-    body { margin:0; overflow:hidden; font-family: system-ui, sans-serif; background-color: #000; }
-
+    body { margin:0; overflow:hidden; font-family:sans-serif; background:#000; }
     #ui {
-      position: fixed;
-      bottom: 10px;
-      left: 10px;
-      right: 10px;
-      max-height: 50%;
-      overflow-y: auto;
-      background: rgba(0,0,0,0.75);
-      color: #fff;
-      border-radius: 10px;
-      padding: 12px;
-      display: none;
-      z-index: 9999;
+      position: fixed; bottom: 10px; left: 10px; right: 10px;
+      max-height: 50%; overflow-y: auto;
+      background: rgba(0,0,0,0.8); color:#fff;
+      border-radius: 10px; padding:12px; display:none; z-index:9999;
     }
-
-    #ui h3 { margin:0 0 6px 0; font-size: 16px; }
-    #ui p { margin:0 0 6px 0; font-size: 14px; white-space: pre-line; }
-
-    #ui a {
-      color: #ffdc6e;
-      text-decoration: underline;
-      word-break: break-word;
-    }
-
+    #ui h3 { margin:0 0 6px 0; font-size:16px; }
+    #ui p { margin:0 0 6px 0; font-size:14px; white-space: pre-line; }
+    #ui a { color:#ffdc6e; text-decoration:underline; }
     #hint {
-      position: fixed;
-      top:10px;
-      left:10px;
-      background: rgba(255,255,255,0.9);
-      padding:6px 10px;
-      border-radius:8px;
-      font-size:13px;
-      z-index:9999;
-      color:#000;
+      position: fixed; top:10px; left:10px;
+      background: rgba(255,255,255,0.9); color:#000;
+      padding:6px 10px; border-radius:8px; font-size:13px; z-index:9999;
     }
   </style>
 </head>
@@ -83,19 +57,13 @@ Sabor: Predominante Agave Cocido, Con Final Terroso en el Paladar se Comporta de
   <a href="https://tequilagiftmex.com/" target="_blank" rel="noopener">Visita TequilaGiftMex.com</a>
 </div>
 
-<a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+<a-scene embedded arjs="sourceType: webcam; debugUIEnabled: true;">
   <a-assets>
-    <img id="botella" src="assets/botella.png" crossorigin="anonymous" />
+    <img id="botella" src="assets/botella.png" crossorigin="anonymous">
   </a-assets>
 
   <a-marker type="pattern" url="assets/marker.patt" id="marker">
-    <a-plane src="#botella"
-             rotation="-90 0 0"
-             width="1"
-             height="0.6"
-             position="0 0 0"
-             material="transparent:true;">
-    </a-plane>
+    <a-plane src="#botella" rotation="-90 0 0" width="2" height="1.2" position="0 0.6 0" material="transparent:true"></a-plane>
   </a-marker>
 
   <a-entity camera></a-entity>
@@ -106,4 +74,9 @@ Sabor: Predominante Agave Cocido, Con Final Terroso en el Paladar se Comporta de
   const ui = document.querySelector('#ui');
   const hint = document.querySelector('#hint');
 
-  marker.addEventLi
+  marker.addEventListener('markerFound', () => { ui.style.display = 'block'; hint.style.display = 'none'; });
+  marker.addEventListener('markerLost', () => { ui.style.display = 'none'; hint.style.display = 'block'; });
+</script>
+
+</body>
+</html>
