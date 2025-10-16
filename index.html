@@ -1,114 +1,80 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0" />
-  <title>TGift AR - Marker</title>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tequila AR</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/1.7.2/aframe/build/aframe-ar.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+        font-family: sans-serif;
+      }
 
-  <!-- A-Frame -->
-  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-  <!-- AR.js (A-Frame build) -->
-  <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.min.js"></script>
+      #overlay {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        width: 90%;
+        max-width: 400px;
+        height: 300px;
+        overflow-y: scroll;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      }
 
-  <style>
-    body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
-    /* UI overlay que aparece/desaparece según marker */
-    #ui {
-      position: fixed;
-      left: 12px;
-      right: 12px;
-      bottom: 12px;
-      background: rgba(0,0,0,0.6);
-      color: #fff;
-      border-radius: 10px;
-      padding: 12px;
-      display: none; /* oculto hasta detectar */
-      z-index: 9999;
-      backdrop-filter: blur(4px);
-    }
-    #ui h3 { margin:0 0 6px 0; font-size:16px; }
-    #ui p { margin:0 0 8px 0; font-size:14px; }
-    #ui a {
-      color: #ffd; 
-      text-decoration: underline;
-      word-break: break-word;
-    }
-    #hint {
-      position: fixed;
-      top:12px;
-      left:12px;
-      background: rgba(255,255,255,0.9);
-      padding:6px 10px;
-      border-radius:8px;
-      font-size:13px;
-      z-index:9999;
-    }
-  </style>
-</head>
-<body>
+      #overlay p {
+        margin-bottom: 10px;
+        font-size: 14px;
+        line-height: 1.4;
+      }
 
-<div id="hint">Apunta la cámara al marcador impreso. Permite cámara cuando el navegador lo pida.</div>
+      #boton {
+        position: absolute;
+        bottom: 20px;
+        left: 10px;
+        padding: 10px 20px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+      }
 
-<!-- UI que aparece al detectar el marcador -->
-<div id="ui" role="region" aria-live="polite">
-  <h3 id="title">Botella Tequila</h3>
-  <p id="desc">Descripción breve de la botella, sus características y promoción.</p>
-  <a id="link" href="https://tequilagiftmex.com/" target="_blank" rel="noopener">Ir a la página de Tequila Gift</a>
-</div>
+      #boton:hover {
+        background: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="overlay">
+      <p><strong>100% Agave azul Tequilana Weber</strong></p>
+      <p>Elaborado Con Agave Azul de la Región de Tequila Jalisco</p>
+      <p>Nos Enorgullecemos en Ofrecerte un Tequila Extra Añejo de la más Alta Calidad</p>
+      <p>Destilado con Pasión y Entrega</p>
+      <p>Nuestra Pasión por la Autenticidad y la Excelencia nos ha llevado a Obtener la Certificación NOM-006-SCFI-2012, Que Garantiza que Nuestro tequila es 100% de Agave Azul</p>
+      <p><strong>Cocimiento:</strong> Las Piñas de Agave Son Cocidas en Hornos de Mampostería Para Asegurar la Correcta Cocción con un Reposo de 18 a 24 Horas</p>
+      <p><strong>Molienda:</strong> Una Vez Cocido La Piña de Agave, Se Exprime En Un Molino de Pasos, Donde La Calidad del Mosto es Monitoreada.</p>
+      <p><strong>Fermentación:</strong> El Mosto Es Fermentado en tanques de Acero inoxidable, Donde Se Logra La Fermentación, de Forma Natural, Generando Las Notas Aromáticas que nos Caracteriza</p>
+      <p><strong>Destilación:</strong> Realizamos una Triple Destilación, En Alambiques de Cobre Donde entre el corte de Cabezas Y Colas, Extraemos el Corazón que Expresa de Forma Aromática y Gustativa El Cuidado que hemos Puesto en la elaboración de Este Tequila De Máxima Calidad</p>
+      <p><strong>Reposo:</strong> Se Reposa en barricas de Roble Blanco Francés 2 Años y 1 Año en Barrica de Whisky</p>
+      <p><strong>Nota de Cata:</strong></p>
+      <p><strong>Color:</strong> Café Dorado Obscuro</p>
+      <p><strong>Aroma:</strong> Agave en Todas sus Expresiones (Campo y Cocido), Balance con Notas Frutales, Dulces y Terrosas</p>
+      <p><strong>Sabor:</strong> Predominante Agave Cocido, Con Final Terroso, Retrogusto Firme con Notas de Agave</p>
+    </div>
 
-<!-- A-Frame scene con AR.js -->
-<a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
-  <!-- assets -->
-  <a-assets>
-    <img id="botellaImg" src="assets/botella.png" crossorigin="anonymous" />
-  </a-assets>
+    <button id="boton" onclick="alert('¡Gracias por explorar nuestro tequila!')">Ver más</button>
 
-  <!-- marcador pattern (usa tu marker.patt dentro de assets/) -->
-  <a-marker type="pattern" url="assets/marker.patt" id="myMarker">
-    <!-- Ejemplo: una imagen plana delante del marcador -->
-    <!-- Ajusta width/height para el tamaño deseado -->
-    <a-plane id="planeImg"
-             src="#botellaImg"
-             rotation="-90 0 0"
-             width="1"
-             height="0.6"
-             position="0 0 0"
-             material="transparent: true;">
-    </a-plane>
-
-    <!-- También puedes añadir texto 3D, modelos glTF, etc. -->
-  </a-marker>
-
-  <!-- cámara -->
-  <a-entity camera></a-entity>
-</a-scene>
-
-<script>
-  // Mostrar/ocultar UI cuando el marker es detectado
-  const marker = document.querySelector('#myMarker');
-  const ui = document.querySelector('#ui');
-  const hint = document.querySelector('#hint');
-
-  // Si quieres actualizar texto dinámicamente, cámbialo aquí:
-  document.getElementById('title').innerText = 'Botella Tequilagift';
-  document.getElementById('desc').innerText = 'Edición especial. Escanea para más información y comprar.';
-  document.getElementById('link').href = 'https://tequilagiftmex.com/';
-
-  function onFound() {
-    ui.style.display = 'block';
-    hint.style.display = 'none';
-  }
-  function onLost() {
-    ui.style.display = 'none';
-    hint.style.display = 'block';
-  }
-
-  marker.addEventListener('markerFound', onFound);
-  marker.addEventListener('markerLost', onLost);
-
-  // Compatibilidad móvil: ocultar el hint si la cámara ya fue permitida
-  // (algunas implementaciones de AR.js disparan events después)
-</script>
-
-</body>
+    <a-scene embedded arjs>
+      <a-marker preset="hiro">
+        <a-image src="botella.png" position="0 0.5 0" width="1.5" height="2"></a-image>
+      </a-marker>
+      <a-entity camera></a-entity>
+    </a-scene>
+  </body>
 </html>
