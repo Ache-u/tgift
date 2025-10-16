@@ -8,18 +8,16 @@
     <style>
       body {
         margin: 0;
-        overflow: hidden;
         font-family: sans-serif;
+        background-color: #f8f8f8;
       }
 
-      #overlay {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        width: 95%;
-        max-width: 500px;
-        height: 320px;
-        overflow-y: scroll;
-        background: rgba(255, 255, 255, 0.95);
-        padding: 15px;
-        border-radius
+      #container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        text-align: center;
+      }
+
+      #text-box {
