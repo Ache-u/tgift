@@ -2,112 +2,89 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0" />
-  <title>TGift AR - Marker</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>TGift AR Demo</title>
 
   <!-- A-Frame -->
   <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-  <!-- AR.js (A-Frame build) -->
+  <!-- AR.js -->
   <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.min.js"></script>
 
   <style>
-    body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
-    /* UI overlay que aparece/desaparece según marker */
+    body { margin:0; overflow:hidden; font-family: system-ui, sans-serif; background-color: #000; }
     #ui {
       position: fixed;
-      left: 12px;
-      right: 12px;
-      bottom: 12px;
-      background: rgba(0,0,0,0.6);
+      bottom: 10px;
+      left: 10px;
+      right: 10px;
+      background: rgba(0,0,0,0.7);
       color: #fff;
       border-radius: 10px;
       padding: 12px;
-      display: none; /* oculto hasta detectar */
+      display: none;
       z-index: 9999;
-      backdrop-filter: blur(4px);
     }
-    #ui h3 { margin:0 0 6px 0; font-size:16px; }
-    #ui p { margin:0 0 8px 0; font-size:14px; }
+    #ui h3 { margin:0 0 6px 0; font-size: 16px; }
+    #ui p { margin:0 0 8px 0; font-size: 14px; }
     #ui a {
-      color: #ffd; 
+      color: #ffdc6e;
       text-decoration: underline;
-      word-break: break-word;
     }
     #hint {
       position: fixed;
-      top:12px;
-      left:12px;
+      top:10px;
+      left:10px;
       background: rgba(255,255,255,0.9);
       padding:6px 10px;
       border-radius:8px;
       font-size:13px;
       z-index:9999;
+      color:#000;
     }
   </style>
 </head>
 <body>
 
-<div id="hint">Apunta la cámara al marcador impreso. Permite cámara cuando el navegador lo pida.</div>
+<div id="hint">Apunta la cámara al marcador (markercode.png) y permite acceso a la cámara.</div>
 
-<!-- UI que aparece al detectar el marcador -->
-<div id="ui" role="region" aria-live="polite">
-  <h3 id="title">Botella Tequila</h3>
-  <p id="desc">Descripción breve de la botella, sus características y promoción.</p>
-  <a id="link" href="https://tequilagiftmex.com/" target="_blank" rel="noopener">Ir a la página de Tequila Gift</a>
+<div id="ui">
+  <h3>Botella TequilaGift</h3>
+  <p>Descubre nuestra edición especial artesanal.</p>
+  <a href="https://tequilagiftmex.com/" target="_blank" rel="noopener">Visita TequilaGiftMex.com</a>
 </div>
 
-<!-- A-Frame scene con AR.js -->
 <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
-  <!-- assets -->
   <a-assets>
-    <img id="botellaImg" src="assets/botella.png" crossorigin="anonymous" />
+    <img id="botella" src="assets/botella.png" crossorigin="anonymous" />
   </a-assets>
 
-  <!-- marcador pattern (usa tu marker.patt dentro de assets/) -->
-  <a-marker type="pattern" url="assets/marker.patt" id="myMarker">
-    <!-- Ejemplo: una imagen plana delante del marcador -->
-    <!-- Ajusta width/height para el tamaño deseado -->
-    <a-plane id="planeImg"
-             src="#botellaImg"
+  <a-marker type="pattern" url="assets/marker.patt" id="marker">
+    <a-plane src="#botella"
              rotation="-90 0 0"
              width="1"
              height="0.6"
              position="0 0 0"
-             material="transparent: true;">
+             material="transparent:true;">
     </a-plane>
-
-    <!-- También puedes añadir texto 3D, modelos glTF, etc. -->
   </a-marker>
 
-  <!-- cámara -->
   <a-entity camera></a-entity>
 </a-scene>
 
 <script>
-  // Mostrar/ocultar UI cuando el marker es detectado
-  const marker = document.querySelector('#myMarker');
+  const marker = document.querySelector('#marker');
   const ui = document.querySelector('#ui');
   const hint = document.querySelector('#hint');
 
-  // Si quieres actualizar texto dinámicamente, cámbialo aquí:
-  document.getElementById('title').innerText = 'Botella Tequilagift';
-  document.getElementById('desc').innerText = 'Edición especial. Escanea para más información y comprar.';
-  document.getElementById('link').href = 'https://tequilagiftmex.com/';
-
-  function onFound() {
+  marker.addEventListener('markerFound', () => {
     ui.style.display = 'block';
     hint.style.display = 'none';
-  }
-  function onLost() {
+  });
+
+  marker.addEventListener('markerLost', () => {
     ui.style.display = 'none';
     hint.style.display = 'block';
-  }
-
-  marker.addEventListener('markerFound', onFound);
-  marker.addEventListener('markerLost', onLost);
-
-  // Compatibilidad móvil: ocultar el hint si la cámara ya fue permitida
-  // (algunas implementaciones de AR.js disparan events después)
+  });
 </script>
 
 </body>
