@@ -1,29 +1,76 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
   <head>
-    <meta charset="utf-8">
-    <title>Tequila AR</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- A-Frame + AR.js -->
-    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.min.js"></script>
-
+    <meta charset="UTF-8" />
+    <title>Tequila WebAR</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ar.js@3.3.2/aframe/build/aframe-ar.min.js"></script>
     <style>
       body {
         margin: 0;
-        overflow: hidden;
-        font-family: 'Georgia', serif;
+        font-family: sans-serif;
+        background-color: #f8f8f8;
       }
 
-      #infoBox {
-        position: absolute;
-        bottom: 10vh;
-        left: 5vw;
-        width: 90vw;
-        max-height: 40vh;
-        overflow-y: auto;
+      #container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        text-align: center;
+      }
+
+      #text-box {
+        width: 95%;
+        max-width: 500px;
+        height: 300px;
+        overflow-y: scroll;
         background: rgba(255, 255, 255, 0.95);
-        padding: 1em;
-        font-size: 1.1em;
-        line-height
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        margin-bottom: 20px;
+      }
+
+      #text-box p {
+        font-size: 18px;
+        line-height: 1.6;
+        margin-bottom: 12px;
+      }
+
+      #boton {
+        padding: 12px 24px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      #boton:hover {
+        background: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Escena AR sin marcador -->
+    <a-scene embedded arjs="sourceType: webcam;">
+      <a-entity position="0 0 -2">
+        <a-image src="botella.png" width="1.5" height="2"></a-image>
+      </a-entity>
+      <a-entity camera></a-entity>
+    </a-scene>
+
+    <!-- Contenido narrativo debajo -->
+    <div id="container">
+      <div id="text-box">
+        <p><strong>100% Agave azul Tequilana Weber</strong></p>
+        <p>Elaborado Con Agave Azul de la Región de Tequila Jalisco</p>
+        <p>Nos Enorgullecemos en Ofrecerte un Tequila Extra Añejo de la más Alta Calidad</p>
+        <p>Destilado con Pasión y Entrega</p>
+        <p>Nuestra Pasión por la Autenticidad y la Excelencia nos ha llevado a Obtener la Certificación NOM-006-SCFI-2012, Que Garantiza que Nuestro tequila es 100% de Agave Azul</p>
+        <p><strong>Cocimiento:</strong> Las Piñas de Agave Son Cocidas en Hornos de Mampostería Para Asegurar la Correcta Cocción con un Reposo de 18 a 24 Horas</p>
+        <p><strong>Molienda:</strong> Una Vez Cocido La Piña de Agave, Se Exprime En Un Molino de Pasos, Donde La Calidad del Mosto es Monitoreada.</p>
+        <p><strong>Fermentación:</strong> El Mosto Es Fermentado en tanques de Acero inoxidable, Donde Se Logra La Fermentación, de Forma Natural, Generando Las Notas Aromáticas que nos Caracteriza</p>
+        <p><strong>Destil
