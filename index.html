@@ -33,4 +33,41 @@
       }
 
       #text-box p {
-        font-size
+        font-size: 18px;
+        line-height: 1.6;
+        margin-bottom: 12px;
+      }
+
+      #boton {
+        padding: 12px 24px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      #boton:hover {
+        background: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Escena AR con marcador personalizado -->
+    <a-scene embedded arjs>
+      <a-marker type="pattern" url="markercode.patt">
+        <a-image src="botella.png" position="0 0.5 0" width="1.5" height="2"></a-image>
+      </a-marker>
+      <a-entity camera></a-entity>
+    </a-scene>
+
+    <!-- Contenido debajo del AR -->
+    <div id="container">
+      <div id="text-box">
+        <p><strong>100% Agave azul Tequilana Weber</strong></p>
+        <p>Elaborado Con Agave Azul de la Región de Tequila Jalisco</p>
+        <p>Nos Enorgullecemos en Ofrecerte un Tequila Extra Añejo de la más Alta Calidad</p>
+        <p>Destilado con Pasión y Entrega</p>
+        <p>Nuestra Pasión por la Autenticidad y la Excelencia nos ha llevado a Obtener la Certificación NOM-006-SCFI-2012, Que Garantiza que Nuestro tequila es 100% de Agave Azul</p>
+        <p><strong>Cocimiento
